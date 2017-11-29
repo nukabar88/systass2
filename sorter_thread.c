@@ -402,7 +402,7 @@ void* sortFile(void* ptrIn)
 	// the fileDirPath where the original CSV file was found
 	printAllCSVFile (movieList, tempIn->fileDirPath, tempIn->filePath, tempIn->outputFileName, tempIn->outputDir);
 	
-	pthread_exit();
+	pthread_exit(NULL);
 }
 
 //char *targetDir, char *sortBy, char *outputDir, FILE *file
@@ -531,9 +531,9 @@ void* sortDir (void* ptrIn)
 	{
 		// Could not open directory
 	  	perror ("");
-	  	pthread_exit();
+	  	pthread_exit(NULL);
 		return NULL;
 	}
-	pthread_exit();
+	pthread_exit(NULL);
 	return NULL;
 }
