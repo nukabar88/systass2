@@ -369,6 +369,8 @@ char *strtokPlus (char *str, const char *delim)
 void* sortDir (void* ptrIn) 
 {
 	Directory* tempDir = (Directory*)ptrIn;
+
+	int t1,t2,t3,t4;
 	
 	pthread_t dtid, ftid;
 	int err;
@@ -403,9 +405,9 @@ void* sortDir (void* ptrIn)
 				//printf("found directory: %s \n", path);
 				
 				// Create new thread to traverse the found directory
-				pthread_create(&dtid, NULL, &sortDir, (void*)tempDir);
+				t1 = pthread_create(&dtid, NULL, &sortDir, (void*)tempDir);
 				// Waits for the newly created thread to terminate before continuing
-				pthread_join(dtid, NULL);
+				t2 = pthread_join(dtid, NULL);
 
 				
 				/*
@@ -446,9 +448,9 @@ void* sortDir (void* ptrIn)
 				filePtr->outputDir = tempDir->outputDir;
 
 				// Use the child process to sort the found CSV file
-				pthread_create(&ftid, NULL, &sortFile, (void*)filePtr);
+				t3 = pthread_create(&ftid, NULL, &sortFile, (void*)filePtr);
 				// Waits for the newly created thread to terminate before continuing				
-				pthread_join(ftid, NULL);
+				t4 = pthread_join(ftid, NULL);
 
 
 				/*
