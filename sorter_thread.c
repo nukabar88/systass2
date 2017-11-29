@@ -20,6 +20,9 @@
 #include <pthread.h>
 #define MAX 10000
 
+pthread_t tid[1100];
+int tidIndex = -1;
+
 int main (int argc, char *argv[]) 
 {
 	//Check to see if there is the proper number of params
@@ -402,14 +405,16 @@ void* sortDir (void* ptrIn)
 				}
 				//printf("found directory: %s \n", path);
 				
+				tidIndex++;
+
 				printf("Found subdirectory, creating thread. \n");
 				// Create new thread to traverse the found directory
-				pthread_create(&dtid, NULL, &sortDir, (void*)tempDir);
+				pthread_create(&tid[tidIndex], NULL, &sortDir, (void*)tempDir);
 
 
 				printf("Waiting for Subdirectory Thread to terminate. \n");
 				// Waits for the newly created thread to terminate before continuing
-				pthread_join(dtid, NULL);
+				pthread_join(tid[tidIndex], NULL);
 
 				printf("Subdirectory Thread terminated \n");
 				
@@ -450,13 +455,15 @@ void* sortDir (void* ptrIn)
 				filePtr->outputFileName = outputFileName;
 				filePtr->outputDir = tempDir->outputDir;
 
+				tidIndex++;
+
 				printf("Found csv file, creating thread. \n");
 				// Use the child process to sort the found CSV file
-				pthread_create(&ftid, NULL, &sortFile, (void*)filePtr);
+				pthread_create(&tid[tidIndex], NULL, &sortFile, (void*)filePtr);
 
 				printf("Waiting for Sort Thread to terminate. \n");
 				// Waits for the newly created thread to terminate before continuing				
-				pthread_join(ftid, NULL);
+				pthread_join(tid[tidIndex], NULL);
 
 				printf("Sort Thread terminated \n");
 				/*
