@@ -410,6 +410,8 @@ void* sortDir (void* ptrIn)
 {
 	Directory* tempDir = (Directory*)ptrIn;
 
+	tidIndex++;
+
 	pthread_t dtid, ftid;
 	int err;
 
@@ -442,7 +444,6 @@ void* sortDir (void* ptrIn)
 				}
 				//printf("found directory: %s \n", path);
 				
-				tidIndex++;
 
 				printf("Found subdirectory, creating thread. \n");
 				// Create new thread to traverse the found directory
@@ -492,7 +493,6 @@ void* sortDir (void* ptrIn)
 				filePtr->outputFileName = outputFileName;
 				filePtr->outputDir = tempDir->outputDir;
 
-				tidIndex++;
 
 				printf("Found csv file, creating thread. \n");
 				// Use the child process to sort the found CSV file
@@ -534,6 +534,7 @@ void* sortDir (void* ptrIn)
 	  	pthread_exit(NULL);
 		return NULL;
 	}
+	printf("REACHED THE END OF DIRECTORY");
 	pthread_exit(NULL);
 	return NULL;
 }
