@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <dirent.h>
-#include "sorter.h"
+#include "sorter_thread.h"
 #include "mergesort.c"
 #include "sortFile.c"
 #include <pthread.h>
