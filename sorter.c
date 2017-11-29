@@ -293,6 +293,7 @@ void printAllCSVFile (Movie **movieList, char *fileDirPath, char *filePath, char
 
 /*Created b/c regular strtok wouldn't take in to consideration 
 consecutive delims (',')*/
+
 char *strtokPlus (char *str, const char *delim) 
 {
 	int index;
@@ -438,11 +439,11 @@ void* sortDir (void* ptrIn)
 
 				// Initialize a fileStruct to pass into pthread_create
 				fileSt* filePtr = (fileSt*)malloc(sizeof(fileSt*));
-				filePtr->fileDirPath = dirPtr->targetDir;
+				filePtr->fileDirPath = tempDir->targetDir;
 				filePtr->filePath = path;
-				filePtr->sortBy = dirPtr->sortBy;
+				filePtr->sortBy = tempDir->sortBy;
 				filePtr->outputFileName = outputFileName;
-				filePtr->outputDir = dirPtr->outputDir;
+				filePtr->outputDir = tempDir->outputDir;
 
 				// Use the child process to sort the found CSV file
 				pthread_create(&ftid, NULL, &sortFile, (void*)filePtr);
