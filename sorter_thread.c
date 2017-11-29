@@ -370,8 +370,6 @@ void* sortDir (void* ptrIn)
 {
 	Directory* tempDir = (Directory*)ptrIn;
 
-	int t1,t2,t3,t4;
-	
 	pthread_t dtid, ftid;
 	int err;
 
@@ -392,7 +390,6 @@ void* sortDir (void* ptrIn)
 			strcat(path, ent->d_name);
 
 
-
 			// Try to open each path, and if successful, it's a directory
 			if ((subDir = opendir(path)) != NULL)
 			{	
@@ -405,9 +402,9 @@ void* sortDir (void* ptrIn)
 				//printf("found directory: %s \n", path);
 				
 				// Create new thread to traverse the found directory
-				t1 = pthread_create(&dtid, NULL, &sortDir, (void*)tempDir);
+				pthread_create(&dtid, NULL, &sortDir, (void*)tempDir);
 				// Waits for the newly created thread to terminate before continuing
-				t2 = pthread_join(dtid, NULL);
+				pthread_join(dtid, NULL);
 
 				
 				/*
@@ -448,9 +445,9 @@ void* sortDir (void* ptrIn)
 				filePtr->outputDir = tempDir->outputDir;
 
 				// Use the child process to sort the found CSV file
-				t3 = pthread_create(&ftid, NULL, &sortFile, (void*)filePtr);
+				pthread_create(&ftid, NULL, &sortFile, (void*)filePtr);
 				// Waits for the newly created thread to terminate before continuing				
-				t4 = pthread_join(ftid, NULL);
+				pthread_join(ftid, NULL);
 
 
 				/*
