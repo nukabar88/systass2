@@ -377,6 +377,7 @@ void* sortDir (void* ptrIn)
 	DIR *dir, *subDir;
 	struct dirent *ent;
 
+	printf("Opening directory. \n");
 	// Try to open targetDir
 	if ((dir = opendir(tempDir->targetDir)) != NULL) 
 	{
@@ -401,8 +402,12 @@ void* sortDir (void* ptrIn)
 				}
 				//printf("found directory: %s \n", path);
 				
+				printf("Found subdirectory, creating thread. \n");
 				// Create new thread to traverse the found directory
 				pthread_create(&dtid, NULL, &sortDir, (void*)tempDir);
+
+
+				printf("Waiting for subdirectory thread to terminate. \n");
 				// Waits for the newly created thread to terminate before continuing
 				pthread_join(dtid, NULL);
 
@@ -444,8 +449,11 @@ void* sortDir (void* ptrIn)
 				filePtr->outputFileName = outputFileName;
 				filePtr->outputDir = tempDir->outputDir;
 
+				printf("Found csv file, creating thread. \n");
 				// Use the child process to sort the found CSV file
 				pthread_create(&ftid, NULL, &sortFile, (void*)filePtr);
+
+				printf("Waiting for sort thread to terminate. \n");
 				// Waits for the newly created thread to terminate before continuing				
 				pthread_join(ftid, NULL);
 
