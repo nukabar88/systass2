@@ -494,6 +494,8 @@ void* sortDir (void* ptrIn)
 				*/
 			}
 
+
+/*
 			// If the directory entry is a CSV file and is not already sorted
 			else if (strstr(ent->d_name, ".csv") != NULL && (strstr(ent->d_name, "-sorted-") == NULL)) 
 			{
@@ -517,7 +519,7 @@ void* sortDir (void* ptrIn)
 				printf("Found csv file, creating Sort Thread %d. \n", currIndex);
 				// Use the child process to sort the found CSV file
 				pthread_create(&tid[currIndex], NULL, &sortFile, (void*)filePtr);
-
+*/
 				//printf("Waiting for Sort Thread %d to terminate. \n", currIndex);
 				// Waits for the newly created thread to terminate before continuing				
 				//pthread_join(tid[currIndex], NULL);
@@ -540,10 +542,12 @@ void* sortDir (void* ptrIn)
 					printf("couldn't fork \n");
 				}
 				*/
-
+/*
 				free(outputFileName);
 			}
-			//free(path);
+*/
+
+			//free(path);*
 		}
 		closedir (dir);
 	}
