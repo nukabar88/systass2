@@ -23,7 +23,7 @@
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 pthread_t tid[1100];
-int tidIndex = -1;
+int tidIndex = 0;
 
 int main (int argc, char *argv[]) 
 {
@@ -57,7 +57,17 @@ int main (int argc, char *argv[])
 		dirPtr->file = file;
 
 		//Traverse the dir and find CSV files to sort
-		sortDir((void*)dirPtr);
+		//sortDir((void*)dirPtr);
+		pthread_create(&tid[0], NULL, &sortDir, (void*)dirPtr);
+
+		int loopI;
+		for(loopI = 0; tid[loopI]!=NULL; loopI++){
+			printf("Joining Thread %d. \n", loopI);
+			pthread_join(tid[loopI], NULL);
+		}
+
+		printf("BACK INTO MAIN FROM MULTITHREADING");
+
 
 		//Close file
 		fclose(file);
@@ -413,7 +423,6 @@ void* sortDir (void* ptrIn)
 	Directory* tempDir = (Directory*)ptrIn;
 
 	int currIndex;
-	int loopI;
 
 	pthread_mutex_lock(&mutex);
 
@@ -551,10 +560,6 @@ void* sortDir (void* ptrIn)
 
 	printf("Exited");
 
-	for(loopI = 0; tid[loopI]!=NULL; loopI++){
-		printf("Joining Thread %d. \n", loopI);
-		pthread_join(tid[loopI], NULL);
-	}
 
 	printf("ALL DONE");
 
