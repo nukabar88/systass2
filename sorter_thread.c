@@ -20,6 +20,8 @@
 #include <pthread.h>
 #define MAX 10000
 
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
 pthread_t tid[1100];
 int tidIndex = -1;
 
@@ -410,7 +412,11 @@ void* sortDir (void* ptrIn)
 {
 	Directory* tempDir = (Directory*)ptrIn;
 
+	pthread_mutex_lock(&mutex);
+
 	tidIndex++;
+
+	pthread_mutex_unlock(&mutex);
 
 	pthread_t dtid, ftid;
 	int err;
@@ -501,7 +507,7 @@ void* sortDir (void* ptrIn)
 				printf("Waiting for Sort Thread to terminate. \n");
 				// Waits for the newly created thread to terminate before continuing				
 				pthread_join(tid[tidIndex], NULL);
-
+ 
 				printf("Sort Thread terminated \n");
 				/*
 				pid_t pid = fork();
