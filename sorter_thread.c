@@ -451,8 +451,9 @@ void* sortDir (void* ptrIn)
 				if (strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0 || strcmp(ent->d_name, ".git") == 0){
                 	continue;
 				}
-				//printf("found directory: %s \n", path);
+				printf("found directory: %s \n", path);
 				
+				tempDir->targetDir = path;
 
 				printf("Found subdirectory, creating thread. \n");
 				// Create new thread to traverse the found directory
