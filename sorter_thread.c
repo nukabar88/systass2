@@ -442,11 +442,11 @@ void* sortDir (void* ptrIn)
 	// Try to open targetDir
 	if ((dir = opendir(tempDir->targetDir)) != NULL) 
 	{
-		char *path = (char *)malloc(256 * sizeof(char));
 		// Iterate through each directory entry within dir
 		while ((ent = readdir(dir)) != NULL) 
 		{
 			// Create a path for each directory entry
+			char *path = (char *)malloc(256 * sizeof(char));
 			strcpy(path, tempDir->targetDir);
 			strcat(path, "/");
 			strcat(path, ent->d_name);
