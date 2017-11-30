@@ -30,21 +30,20 @@ int main (int argc, char *argv[])
 	//Check to see if there is the proper number of params
 	if (argc == 5 || argc == 7) 
 	{	 		
-		//Directory* dirPtr = (Directory*)malloc(sizeof(Directory));
-		Directory** dirPtr = (Directory**)malloc(1100 * sizeof(Directory*));
+		Directory* dirPtr = (Directory*)malloc(sizeof(Directory));
 		// Use switch-case to parse flags
 		char *column; 
 		int index;
 		for (index = 2; index < argc; index+=2) {
 			switch (argv[index-1][1]) {
 				case 'c':
-					(dirPtr[0])->sortBy = argv[index];
+					dirPtr->sortBy = argv[index];
 					break;
 				case 'd':
-					(dirPtr[0])->targetDir = argv[index];
+					dirPtr->targetDir = argv[index];
 					break;
 				case 'o':
-					(dirPtr[0])->outputDir = argv[index];
+					dirPtr->outputDir = argv[index];
 			}
 		}
 		
@@ -54,11 +53,11 @@ int main (int argc, char *argv[])
 		//Open up a file so threads can write to it
 		FILE *file = fopen("processesList.txt", "w");
 
-		(dirPtr[0])->file = file;
+		dirPtr->file = file;
 
 		//Traverse the dir and find CSV files to sort
 		//sortDir((void*)dirPtr);
-		pthread_create(&tid[0], NULL, &sortDir, (void*)dirPtr[0]);
+		pthread_create(&tid[0], NULL, &sortDir, (void*)dirPtr);
 
 		int loopI;
 		//tid[loopI]!=NULL
