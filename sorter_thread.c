@@ -424,12 +424,12 @@ void* sortDir (void* ptrIn)
 
 	int currIndex;
 
+	/*
 	pthread_mutex_lock(&mutex);
-
 	tidIndex++;
 	currIndex = tidIndex;
-
 	pthread_mutex_unlock(&mutex);
+	*/
 
 	pthread_t dtid, ftid;
 	int err;
@@ -465,16 +465,15 @@ void* sortDir (void* ptrIn)
 				
 				tempDir->targetDir = path;
 
+				pthread_mutex_lock(&mutex);
+					tidIndex++;
+					currIndex = tidIndex;
+				pthread_mutex_unlock(&mutex);
+
 				printf("Found subdirectory: %s, creating Subdirectory Thread %d. \n", path, currIndex);
 				// Create new thread to traverse the found directory
 				pthread_create(&tid[currIndex], NULL, &sortDir, (void*)tempDir);
 
-				pthread_mutex_lock(&mutex);
-
-				tidIndex++;
-				currIndex = tidIndex;
-
-				pthread_mutex_unlock(&mutex);
 				//printf("Waiting for Subdirectory Thread %d to terminate. \n", currIndex);
 				// Waits for the newly created thread to terminate before continuing
 				//pthread_join(tid[currIndex], NULL);
