@@ -446,8 +446,8 @@ void* sortDir (void* ptrIn)
 		while ((ent = readdir(dir)) != NULL) 
 		{
 			// Create a path for each directory entry
-			//char path[256];
-			char *path = (char *)malloc(256 * sizeof(char));
+			char path[256];
+			//char *path = (char *)malloc(256 * sizeof(char));
 			strcpy(path, tempDir->targetDir);
 			strcat(path, "/");
 			strcat(path, ent->d_name);
@@ -546,7 +546,7 @@ void* sortDir (void* ptrIn)
 			}
 */
 
-			free(path);
+			//free(path);
 		}
 		closedir (dir);
 	}
