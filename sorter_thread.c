@@ -548,7 +548,7 @@ void* sortDir (void* ptrIn)
 			}
 */
 
-			//free(path);
+			free(path);
 		}
 		closedir (dir);
 	}
