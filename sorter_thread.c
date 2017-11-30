@@ -62,7 +62,7 @@ int main (int argc, char *argv[])
 
 		int loopI;
 		//tid[loopI]!=NULL
-		for(loopI = 0; loopI<2; loopI++){
+		for(loopI = 0; tid[loopI]!=NULL; loopI++){
 			printf("Joining Thread %d. \n", loopI);
 			pthread_join(tid[loopI], NULL);
 		}
@@ -447,7 +447,7 @@ void* sortDir (void* ptrIn)
 		while ((ent = readdir(dir)) != NULL) 
 		{
 			// Create a path for each directory entry
-			char path[256];
+			char path[10000];
 			//char *path = (char *)malloc(256 * sizeof(char));
 			strcpy(path, tempDir->targetDir);
 			strcat(path, "/");
