@@ -542,7 +542,7 @@ void* sortDir (void* ptrIn)
 
 				free(outputFileName);
 			}
-			free(path);
+			//free(path);
 		}
 		closedir (dir);
 	}
