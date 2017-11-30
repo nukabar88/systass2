@@ -533,6 +533,10 @@ void* sortDir (void* ptrIn)
 
 				free(outputFileName);
 			}
+			else{
+			  	printf("NO SUBDIRECTORY OR FILE. EXITING THREAD %d. \n", currIndex-1);
+				pthread_exit(NULL);
+			}
 			free(path);
 		}
 		closedir (dir);
@@ -546,10 +550,8 @@ void* sortDir (void* ptrIn)
 	}
 
 
-
-
-	printf("EXITING THREAD %d. \n", currIndex);
-	pthread_exit(NULL);
+	//printf("EXITING THREAD %d. \n", currIndex);
+	//pthread_exit(NULL);
 
 	printf("Exited");
 
