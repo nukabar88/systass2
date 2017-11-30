@@ -539,8 +539,7 @@ void* sortDir (void* ptrIn)
 	}
 	else 
 	{
-		// Could not open directory
-		printf("Not Directory");
+		// Could not open directory. Prints "Not a directory".
 	  	perror ("");
 	  	pthread_exit(NULL);
 		return NULL;
@@ -552,6 +551,7 @@ void* sortDir (void* ptrIn)
 	printf("EXITING THREAD %d. \n", currIndex);
 	pthread_exit(NULL);
 
+	printf("Exited");
 
 	for(loopI = 0; tid[loopI]!=NULL; loopI++){
 		printf("Joining Thread %d. \n", loopI);
