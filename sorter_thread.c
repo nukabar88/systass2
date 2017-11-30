@@ -61,7 +61,8 @@ int main (int argc, char *argv[])
 		pthread_create(&tid[0], NULL, &sortDir, (void*)dirPtr);
 
 		int loopI;
-		for(loopI = 0; tid[loopI]!=NULL; loopI++){
+		//tid[loopI]!=NULL
+		for(loopI = 0; loopI<3; loopI++){
 			printf("Joining Thread %d. \n", loopI);
 			pthread_join(tid[loopI], NULL);
 		}
