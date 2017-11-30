@@ -30,14 +30,14 @@ int main (int argc, char *argv[])
 	//Check to see if there is the proper number of params
 	if (argc == 5 || argc == 7) 
 	{	 		
-		Directory* dirPtr = (Directory*)malloc(sizeof(Directory*));
+		Directory* dirPtr = (Directory*)malloc(sizeof(Directory));
 		// Use switch-case to parse flags
 		char *column; 
 		int index;
 		for (index = 2; index < argc; index+=2) {
 			switch (argv[index-1][1]) {
 				case 'c':
-					column = argv[index];
+					dirPtr->sortBy = argv[index];
 					break;
 				case 'd':
 					dirPtr->targetDir = argv[index];
@@ -47,7 +47,6 @@ int main (int argc, char *argv[])
 			}
 		}
 		
-		dirPtr->sortBy = argv[2];
 
 		//printf("Initial PID: %d \n", getpid());
 
@@ -443,13 +442,12 @@ void* sortDir (void* ptrIn)
 	// Try to open targetDir
 	if ((dir = opendir(tempDir->targetDir)) != NULL) 
 	{
-		char path[256];
 		// Iterate through each directory entry within dir
 		while ((ent = readdir(dir)) != NULL) 
 		{
 			// Create a path for each directory entry
 			//char path[256];
-			//char *path = (char *)malloc(256 * sizeof(char));
+			char *path = (char *)malloc(256 * sizeof(char));
 			strcpy(path, tempDir->targetDir);
 			strcat(path, "/");
 			strcat(path, ent->d_name);
@@ -548,7 +546,7 @@ void* sortDir (void* ptrIn)
 			}
 */
 
-			//free(path);
+			free(path);
 		}
 		closedir (dir);
 	}
