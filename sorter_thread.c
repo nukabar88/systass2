@@ -413,6 +413,7 @@ void* sortDir (void* ptrIn)
 	Directory* tempDir = (Directory*)ptrIn;
 
 	int currIndex;
+	int loopI;
 
 	pthread_mutex_lock(&mutex);
 
@@ -461,7 +462,7 @@ void* sortDir (void* ptrIn)
 
 				printf("Waiting for Subdirectory Thread %d to terminate. \n", currIndex);
 				// Waits for the newly created thread to terminate before continuing
-				pthread_join(tid[currIndex], NULL);
+				//pthread_join(tid[currIndex], NULL);
 
 				printf("Subdirectory Thread terminated \n");
 				
@@ -509,7 +510,7 @@ void* sortDir (void* ptrIn)
 
 				printf("Waiting for Sort Thread %d to terminate. \n", currIndex);
 				// Waits for the newly created thread to terminate before continuing				
-				pthread_join(tid[currIndex], NULL);
+				//pthread_join(tid[currIndex], NULL);
  
 				printf("Sort Thread terminated \n");
 				/*
@@ -543,7 +544,17 @@ void* sortDir (void* ptrIn)
 	  	pthread_exit(NULL);
 		return NULL;
 	}
-	printf("REACHED THE END OF DIRECTORY");
+
+
+
+
+	printf("EXITING THREAD %d. \n", currIndex);
 	pthread_exit(NULL);
+
+	for(loopI = 0; tid[loopI]!=NULL; loopI++){
+		pthread_join(tid[loopI], NULL);
+	}
+
+
 	return NULL;
 }
