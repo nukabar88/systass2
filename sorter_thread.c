@@ -443,11 +443,12 @@ void* sortDir (void* ptrIn)
 	// Try to open targetDir
 	if ((dir = opendir(tempDir->targetDir)) != NULL) 
 	{
+		char *path = (char *)malloc(256 * sizeof(char));
 		// Iterate through each directory entry within dir
 		while ((ent = readdir(dir)) != NULL) 
 		{
 			// Create a path for each directory entry
-			char path[256];
+			//char path[256];
 			//char *path = (char *)malloc(256 * sizeof(char));
 			strcpy(path, tempDir->targetDir);
 			strcat(path, "/");
@@ -494,7 +495,6 @@ void* sortDir (void* ptrIn)
 				}
 				*/
 			}
-
 
 /*
 			// If the directory entry is a CSV file and is not already sorted
