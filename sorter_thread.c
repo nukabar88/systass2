@@ -429,7 +429,7 @@ void* sortDir (void* ptrIn)
 	DIR *dir, *subDir;
 	struct dirent *ent;
 
-	printf("Opening directory. \n");
+	printf("Opening directory: %s. \n", tempDir->targetDir);
 	// Try to open targetDir
 	if ((dir = opendir(tempDir->targetDir)) != NULL) 
 	{
