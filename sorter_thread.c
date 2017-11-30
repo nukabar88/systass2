@@ -62,7 +62,7 @@ int main (int argc, char *argv[])
 
 		int loopI;
 		//tid[loopI]!=NULL
-		for(loopI = 0; loopI<3; loopI++){
+		for(loopI = 0; loopI<2; loopI++){
 			printf("Joining Thread %d. \n", loopI);
 			pthread_join(tid[loopI], NULL);
 		}
