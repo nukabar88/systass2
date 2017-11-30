@@ -542,7 +542,7 @@ void* sortDir (void* ptrIn)
 		// Could not open directory. Prints "Not a directory".
 	  	perror ("");
 	  	pthread_exit(NULL);
-		return NULL;
+		//return NULL;
 	}
 
 
@@ -558,5 +558,5 @@ void* sortDir (void* ptrIn)
 
 	printf("ALL DONE");
 
-	return NULL;
+	//return NULL;
 }
