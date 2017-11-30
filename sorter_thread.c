@@ -22,7 +22,7 @@
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-pthread_t tid[1100] = {NULL};
+pthread_t tid[1100];
 int tidIndex = -1;
 
 int main (int argc, char *argv[]) 
@@ -551,10 +551,13 @@ void* sortDir (void* ptrIn)
 	printf("EXITING THREAD %d. \n", currIndex);
 	pthread_exit(NULL);
 
+
 	for(loopI = 0; tid[loopI]!=NULL; loopI++){
+		printf("Joining Thread %d. \n", loopI);
 		pthread_join(tid[loopI], NULL);
 	}
 
+	printf("ALL DONE");
 
 	return NULL;
 }
