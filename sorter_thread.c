@@ -62,16 +62,11 @@ int main (int argc, char *argv[])
 
 		int loopI;
 		//tid[loopI]!=NULL
-		/*
 		for(loopI = 0; tid[loopI]!=NULL; loopI++){
 			printf("Joining Thread %d. \n", loopI);
 			pthread_join(tid[loopI], NULL);
 		}
-*/
-		pthread_join(tid[0],NULL);
-		pthread_join(tid[1],NULL);
-		pthread_join(tid[2],NULL);
-	
+
 		printf("BACK INTO MAIN FROM MULTITHREADING");
 
 
@@ -452,8 +447,8 @@ void* sortDir (void* ptrIn)
 		while ((ent = readdir(dir)) != NULL) 
 		{
 			// Create a path for each directory entry
-			char path[256];
-			//char *path = (char *)malloc(256 * sizeof(char));
+			//char path[256];
+			char *path = (char *)malloc(256 * sizeof(char));
 			strcpy(path, tempDir->targetDir);
 			strcat(path, "/");
 			strcat(path, ent->d_name);
