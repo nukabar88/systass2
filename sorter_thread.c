@@ -445,7 +445,7 @@ void* sortDir (void* ptrIn)
 
 			// Try to open each path, and if successful, it's a directory
 			if ((subDir = opendir(path)) != NULL)
-			{	
+			{
 				closedir(subDir);
 
 				// Ignore some weird folders
@@ -540,6 +540,7 @@ void* sortDir (void* ptrIn)
 	else 
 	{
 		// Could not open directory
+		printf("Not Directory");
 	  	perror ("");
 	  	pthread_exit(NULL);
 		return NULL;
