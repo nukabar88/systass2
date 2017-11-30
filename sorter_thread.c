@@ -448,7 +448,7 @@ void* sortDir (void* ptrIn)
 		{
 			// Create a path for each directory entry
 			//char path[256];
-			char *path = (char *)malloc(256 * sizeof(char));
+			char *path = malloc(256 * sizeof(char));
 			strcpy(path, tempDir->targetDir);
 			strcat(path, "/");
 			strcat(path, ent->d_name);
