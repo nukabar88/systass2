@@ -23,7 +23,7 @@
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 pthread_t tid[1100];
-int tidIndex = -1;
+int tidIndex = 0;
 
 int main (int argc, char *argv[]) 
 {
@@ -422,16 +422,15 @@ void* sortDir (void* ptrIn)
 {
 	Directory* tempDir = (Directory*)ptrIn;
 
-	int currIndex = 0;
+	int currIndex = -1;
 
-	
+	/*
 	pthread_mutex_lock(&mutex);
 	tidIndex++;
 	currIndex = tidIndex;
 	pthread_mutex_unlock(&mutex);
-	
+	*/
 
-	pthread_t dtid, ftid;
 	int err;
 
 	int status;
