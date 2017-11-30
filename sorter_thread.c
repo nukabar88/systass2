@@ -443,7 +443,7 @@ void* sortDir (void* ptrIn)
 	// Try to open targetDir
 	if ((dir = opendir(tempDir->targetDir)) != NULL) 
 	{
-		char *path = (char *)malloc(256 * sizeof(char));
+		char path[256];
 		// Iterate through each directory entry within dir
 		while ((ent = readdir(dir)) != NULL) 
 		{
@@ -548,7 +548,7 @@ void* sortDir (void* ptrIn)
 			}
 */
 
-			free(path);
+			//free(path);
 		}
 		closedir (dir);
 	}
