@@ -62,11 +62,11 @@ int main (int argc, char *argv[])
 		int loopI;
 		//tid[loopI]!=NULL
 		for(loopI = 0; tid[loopI]!=NULL; loopI++){
-			printf("Joining Thread %d. \n", loopI);
+			//printf("Joining Thread %d. \n", loopI);
 			pthread_join(tid[loopI], NULL);
 		}
 
-		printf("BACK INTO MAIN FROM MULTITHREADING");
+
 
 
 		//Close file
@@ -83,7 +83,17 @@ int main (int argc, char *argv[])
 			numOfThreads++;
 		}		
 		printf("\n");
-		printf("Total number of processes: %i \n", numOfThreads);
+		printf("Initial PID: %i \n", getpid());
+		printf("	TIDS of all child threads: ");
+		int forIndex;
+		int forCounter = 0;
+		for(forIndex = 0; tid[forIndex] != NULL; forIndex++){
+			printf("%lu, ", tid[forIndex]);
+			forCounter++;
+		}
+		printf("\n");
+		printf("	Total number of threads: %i \n", forCounter);
+
 		fclose(file2);
 		return 0;
     }
@@ -438,7 +448,7 @@ void* sortDir (void* ptrIn)
 	DIR *dir, *subDir;
 	struct dirent *ent;
 
-	printf("Opening directory: %s. \n", tempDir->targetDir);
+	//printf("Opening directory: %s. \n", tempDir->targetDir);
 	// Try to open targetDir
 	if ((dir = opendir(tempDir->targetDir)) != NULL) 
 	{
@@ -473,7 +483,7 @@ void* sortDir (void* ptrIn)
 				
 				tempDir->targetDir = path;
 
-				printf("Found subdirectory: %s, creating Subdirectory Thread %d. \n", path, currIndex);
+				//printf("Found subdirectory: %s, creating Subdirectory Thread %d. \n", path, currIndex);
 				// Create new thread to traverse the found directory
 				pthread_create(&tid[currIndex], NULL, &sortDir, (void*)tempDir);
 
@@ -524,7 +534,7 @@ void* sortDir (void* ptrIn)
 				filePtr->outputDir = tempDir->outputDir;
 
 
-				printf("Found csv file, creating Sort Thread %d. \n", currIndex);
+				//printf("Found csv file, creating Sort Thread %d. \n", currIndex);
 				// Use the child process to sort the found CSV file
 				pthread_create(&tid[currIndex], NULL, &sortFile, (void*)filePtr);
 
@@ -568,13 +578,9 @@ void* sortDir (void* ptrIn)
 	}
 
 
-	printf("EXITING THREAD. \n");
+	//printf("EXITING THREAD. \n");
 	pthread_exit(NULL);
 
-	printf("Exited");
-
-
-	printf("ALL DONE");
 
 	//return NULL;
 }
