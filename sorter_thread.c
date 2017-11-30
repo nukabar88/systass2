@@ -412,9 +412,12 @@ void* sortDir (void* ptrIn)
 {
 	Directory* tempDir = (Directory*)ptrIn;
 
+	int currIndex;
+
 	pthread_mutex_lock(&mutex);
 
 	tidIndex++;
+	currIndex = tidIndex;
 
 	pthread_mutex_unlock(&mutex);
 
@@ -453,12 +456,12 @@ void* sortDir (void* ptrIn)
 
 				printf("Found subdirectory, creating thread. \n");
 				// Create new thread to traverse the found directory
-				pthread_create(&tid[0], NULL, &sortDir, (void*)tempDir);
+				pthread_create(&tid[currIndex], NULL, &sortDir, (void*)tempDir);
 
 
 				printf("Waiting for Subdirectory Thread to terminate. \n");
 				// Waits for the newly created thread to terminate before continuing
-				pthread_join(tid[0], NULL);
+				pthread_join(tid[currIndex], NULL);
 
 				printf("Subdirectory Thread terminated \n");
 				
@@ -502,11 +505,11 @@ void* sortDir (void* ptrIn)
 
 				printf("Found csv file, creating thread. \n");
 				// Use the child process to sort the found CSV file
-				pthread_create(&tid[tidIndex], NULL, &sortFile, (void*)filePtr);
+				pthread_create(&tid[currIndex], NULL, &sortFile, (void*)filePtr);
 
 				printf("Waiting for Sort Thread to terminate. \n");
 				// Waits for the newly created thread to terminate before continuing				
-				pthread_join(tid[tidIndex], NULL);
+				pthread_join(tid[currIndex], NULL);
  
 				printf("Sort Thread terminated \n");
 				/*
