@@ -469,7 +469,12 @@ void* sortDir (void* ptrIn)
 				// Create new thread to traverse the found directory
 				pthread_create(&tid[currIndex], NULL, &sortDir, (void*)tempDir);
 
+				pthread_mutex_lock(&mutex);
 
+				tidIndex++;
+				currIndex = tidIndex;
+
+				pthread_mutex_unlock(&mutex);
 				//printf("Waiting for Subdirectory Thread %d to terminate. \n", currIndex);
 				// Waits for the newly created thread to terminate before continuing
 				//pthread_join(tid[currIndex], NULL);
