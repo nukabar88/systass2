@@ -455,12 +455,12 @@ void* sortDir (void* ptrIn)
 				
 				tempDir->targetDir = path;
 
-				printf("Found subdirectory, creating thread. \n");
+				printf("Found subdirectory, creating Subdirectory Thread %d. \n", currIndex);
 				// Create new thread to traverse the found directory
 				pthread_create(&tid[currIndex], NULL, &sortDir, (void*)tempDir);
 
 
-				printf("Waiting for Subdirectory Thread to terminate. \n");
+				printf("Waiting for Subdirectory Thread %d to terminate. \n", currIndex);
 				// Waits for the newly created thread to terminate before continuing
 				pthread_join(tid[currIndex], NULL);
 
@@ -504,11 +504,11 @@ void* sortDir (void* ptrIn)
 				filePtr->outputDir = tempDir->outputDir;
 
 
-				printf("Found csv file, creating thread. \n");
+				printf("Found csv file, creating Sort Thread %d. \n", currIndex);
 				// Use the child process to sort the found CSV file
 				pthread_create(&tid[currIndex], NULL, &sortFile, (void*)filePtr);
 
-				printf("Waiting for Sort Thread to terminate. \n");
+				printf("Waiting for Sort Thread %d to terminate. \n", currIndex);
 				// Waits for the newly created thread to terminate before continuing				
 				pthread_join(tid[currIndex], NULL);
  
