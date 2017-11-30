@@ -22,7 +22,7 @@
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-pthread_t tid[1100];
+pthread_t tid[1100] = {NULL};
 int tidIndex = -1;
 
 int main (int argc, char *argv[]) 
